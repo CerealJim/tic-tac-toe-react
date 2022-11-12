@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+
+import { useState, useEffect } from 'react';
 import './App.css';
 
+
+
 function App() {
+
+  const [tracking, settracking] = useState([]);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+      <section>
+        <h1 className="playerTitle">Tic Tac Toe REACT</h1>
         <a
-          className="App-link"
-          href="https://reactjs.org"
+          className="rematch"
+          href="#"
           target="_blank"
-          rel="noopener noreferrer"
         >
-          Learn React
+          Want a rematch?
         </a>
-      </header>
+        <div className="container">
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+          <div className="item"></div>
+        </div>
+      </section>
     </div>
   );
 }
