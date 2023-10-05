@@ -231,6 +231,9 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 .app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   body {
     min-height: 100vh;
     width: 100%;
@@ -260,7 +263,7 @@ html {
   .playerTitle {
     font-size: 50px;
     margin-bottom: 100px;
-    color: white;
+    color: black;
   }
   .playerX {
     background-image: url("https://images.unsplash.com/photo-1593341832681-6cb2ce1ed053?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4536&q=80");
@@ -278,7 +281,7 @@ html {
     cursor: pointer;
     padding: 20px 50px;
     display: inline-block;
-    color: white;
+    color: black;
     text-decoration: none;
     font-size: 24px;
     margin-bottom: 30px;

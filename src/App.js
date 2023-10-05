@@ -4,7 +4,7 @@ import "./App.scss";
 
 function App() {
   // const [turn, setTurn] = useState("O");
-  const [tracking, setTracking] = useState([
+  let [tracking, setTracking] = useState([
     "",
     "",
     "",
@@ -16,32 +16,43 @@ function App() {
     "",
     "",
   ]);
+  const [currentPlayer, setCurrentPlayer] = useState("Player 1");
 
   // useEffect(() => {
   //   console.log("test");
   // }, [tracking]);
 
-  // const winCheck = (playerName, items) => {
-  //   function check(pos1, pos2, pos3) {
-  //     if (
-  //       items[pos1].classList.contains(playerName) &
-  //       items[pos2].classList.contains(playerName) &
-  //       items[pos3].classList.contains(playerName)
-  //     ) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-  //   if (check(0, 3, 6)) return true;
-  //   else if (check(1, 4, 7)) return true;
-  //   else if (check(2, 5, 8)) return true;
-  //   else if (check(0, 1, 2)) return true;
-  //   else if (check(3, 4, 5)) return true;
-  //   else if (check(6, 7, 8)) return true;
-  //   else if (check(0, 4, 8)) return true;
-  //   else if (check(2, 4, 6)) return true;
-  // };
+  const winCheck = (playerName, items) => {
+    function check(pos1, pos2, pos3) {
+      if (
+        items[pos1].classList.contains(playerName) &
+        items[pos2].classList.contains(playerName) &
+        items[pos3].classList.contains(playerName)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (check(0, 3, 6)) return true;
+    else if (check(1, 4, 7)) return true;
+    else if (check(2, 5, 8)) return true;
+    else if (check(0, 1, 2)) return true;
+    else if (check(3, 4, 5)) return true;
+    else if (check(6, 7, 8)) return true;
+    else if (check(0, 4, 8)) return true;
+    else if (check(2, 4, 6)) return true;
+  };
+
+  const togglePlayerTurn = (newPlayer) => {
+    setCurrentPlayer(newPlayer);
+  };
+
+  const updateBoard = (numPick, playerPick) => {
+    const newBoard = [...tracking]; //spread operator to copy array
+    newBoard[numPick] = playerPick;
+    setTracking(newBoard);
+  };
 
   // const restartGame = () => {
   //   setTracking(["", "", "", "", "", "", "", "", ""]);
@@ -73,8 +84,17 @@ function App() {
           Want a rematch?
         </a>
         <div className="container">
-          {tracking.map((val, index) => {
-            return <Tile value={val} ind={index} />;
+          {tracking.map((el, index) => {
+            return (
+              <Tile
+                ind={index}
+                key={index}
+                board={tracking}
+                updateBoard={updateBoard}
+                player={currentPlayer}
+                updatePlayer={togglePlayerTurn}
+              />
+            );
           })}
         </div>
       </section>
