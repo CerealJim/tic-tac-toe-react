@@ -16,13 +16,14 @@ function App() {
     "",
     "",
   ]);
-  const [currentPlayer, setCurrentPlayer] = useState("Player 1");
+  const [currentPlayer, setCurrentPlayer] = useState("player1");
 
   // useEffect(() => {
   //   console.log("test");
   // }, [tracking]);
 
   const winCheck = (playerName, items) => {
+    console.log("winCheck", playerName, items);
     function check(pos1, pos2, pos3) {
       if (
         items[pos1].classList.contains(playerName) &
@@ -52,6 +53,7 @@ function App() {
     const newBoard = [...tracking]; //spread operator to copy array
     newBoard[numPick] = playerPick;
     setTracking(newBoard);
+    // winCheck(playerPick, tracking);
   };
 
   // const restartGame = () => {

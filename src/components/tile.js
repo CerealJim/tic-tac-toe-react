@@ -19,19 +19,16 @@ import "../App.scss";
 // };
 
 const Tile = (props) => {
-  const divClasses = `item`;
+  const divClasses = `item ${props.board[props.ind]} `;
 
   const updateBoard = () => {
     if (props.board[props.ind] === "") {
       props.updateBoard(props.ind, props.player);
-      // divClasses = `item ${
-      //   props.player === "player 1" ? "playerX" : "computer"
-      // }`;
     }
   };
 
   const togglePlayerTurn = () => {
-    const newPlayer = props.player === "Player 1" ? "Player 2" : "Player 1";
+    const newPlayer = props.player === "player1" ? "player2" : "player1";
     props.updatePlayer(newPlayer);
   };
 

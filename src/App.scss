@@ -259,19 +259,20 @@ html {
     width: 100%;
     height: 100%;
     background-color: var(--bg);
+    cursor: pointer;
   }
   .playerTitle {
     font-size: 50px;
     margin-bottom: 100px;
     color: black;
   }
-  .playerX {
+  .player1 {
     background-image: url("https://images.unsplash.com/photo-1593341832681-6cb2ce1ed053?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=4536&q=80");
     background-repeat: no-repeat;
     background-size: cover;
     cursor: no-drop;
   }
-  .computer {
+  .player2 {
     background-image: url("https://images.unsplash.com/photo-1502085026219-54ac00e06fd9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3336&q=80");
     background-repeat: no-repeat;
     background-size: cover;
