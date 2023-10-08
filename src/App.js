@@ -1,48 +1,45 @@
 import { useState, useEffect } from "react";
 import Tile from "./components/tile";
 import "./App.scss";
+import WinnerModal from "./components/WinnerModal";
 
 function App() {
-  // const [turn, setTurn] = useState("O");
-  let [tracking, setTracking] = useState([
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  let [tracking, setTracking] = useState(["", "", "", "", "", "", "", "", ""]);
   const [currentPlayer, setCurrentPlayer] = useState("player1");
+  const [gameStatus, setGameStatus] = useState(false); //true means that there is a winner
+  const [showModal, setShowModal] = useState(false);
 
-  // useEffect(() => {
-  //   console.log("test");
-  // }, [tracking]);
-
-  const winCheck = (playerName, items) => {
-    console.log("winCheck", playerName, items);
+  const winCheck = () => {
+    // console.log(tracking, currentPlayer);
     function check(pos1, pos2, pos3) {
       if (
-        items[pos1].classList.contains(playerName) &
-        items[pos2].classList.contains(playerName) &
-        items[pos3].classList.contains(playerName)
+        tracking[pos1] === currentPlayer &&
+        tracking[pos2] === currentPlayer &&
+        tracking[pos3] === currentPlayer
       ) {
-        return true;
-      } else {
-        return false;
+        console.log("winner found");
+        // setGameStatus(true);
+        // handleGameEnd(currentPlayer);
+        return true; // Return true when there's a win condition
+      }
+      {
+        return false; // Return false otherwise
       }
     }
-    if (check(0, 3, 6)) return true;
-    else if (check(1, 4, 7)) return true;
-    else if (check(2, 5, 8)) return true;
-    else if (check(0, 1, 2)) return true;
-    else if (check(3, 4, 5)) return true;
-    else if (check(6, 7, 8)) return true;
-    else if (check(0, 4, 8)) return true;
-    else if (check(2, 4, 6)) return true;
+    if (
+      check(0, 3, 6) ||
+      check(1, 4, 7) ||
+      check(2, 5, 8) ||
+      check(0, 1, 2) ||
+      check(3, 4, 5) ||
+      check(6, 7, 8) ||
+      check(0, 4, 8) ||
+      check(2, 4, 6)
+    ) {
+      return true; // Set gameStatus to true when there's a win
+    }
+
+    return false; // Return false if there's no win condition
   };
 
   const togglePlayerTurn = (newPlayer) => {
@@ -53,38 +50,48 @@ function App() {
     const newBoard = [...tracking]; //spread operator to copy array
     newBoard[numPick] = playerPick;
     setTracking(newBoard);
-    // winCheck(playerPick, tracking);
   };
 
-  // const restartGame = () => {
-  //   setTracking(["", "", "", "", "", "", "", "", ""]);
-  //   setPlayer("O");
-  // };
+  const restartGame = () => {
+    setTracking(["", "", "", "", "", "", "", "", ""]);
+    setGameStatus(false);
+    setCurrentPlayer("player1");
+    setShowModal(false);
+  };
 
-  // const chooseSquare = (props) => {
-  //   console.log(props);
-  //   setTracking(
-  //     tracking.map((val, index) => {
-  //       if (index === props && val == "") {
-  //         return turn;
-  //       }
-  //       return val;
-  //     })
-  //   );
-  //   if (turn == "x") {
-  //     setTurn("0");
-  //   } else {
-  //     setTurn("x");
-  //   }
-  // };
+  const handleGameEnd = (player) => {
+    setGameStatus(true);
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    if (winCheck() === false) {
+      const newPlayer = currentPlayer === "player1" ? "player2" : "player1";
+      togglePlayerTurn(newPlayer);
+    } else {
+      handleGameEnd();
+    }
+  }, [tracking]);
+
+  // useEffect(() => {
+  //   winCheck();
+  // }, [tracking]);
 
   return (
     <div className="app">
       <h1 className="playerTitle">Tic Tac Toe REACT</h1>
       <section>
-        <a className="rematch" href="#" target="_blank">
+        <button
+          className="rematch"
+          href="#"
+          target="_blank"
+          onClick={() => {
+            console.log("click");
+            restartGame();
+          }}
+        >
           Want a rematch?
-        </a>
+        </button>
         <div className="container">
           {tracking.map((el, index) => {
             return (
@@ -95,9 +102,25 @@ function App() {
                 updateBoard={updateBoard}
                 player={currentPlayer}
                 updatePlayer={togglePlayerTurn}
+                // winCheck={winCheck}
+                // gameStatus={gameStatus}
+                // restartGame={restartGame}
+                // handleGameEnd={handleGameEnd}
               />
             );
           })}
+          {showModal === true ? (
+            <WinnerModal
+              winner={currentPlayer}
+              onClose={() => {
+                setShowModal(false);
+                restartGame();
+              }}
+              // style={{ display: "flex" }}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </div>
