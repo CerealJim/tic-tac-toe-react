@@ -10,16 +10,12 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   const winCheck = () => {
-    // console.log(tracking, currentPlayer);
     function check(pos1, pos2, pos3) {
       if (
         tracking[pos1] === currentPlayer &&
         tracking[pos2] === currentPlayer &&
         tracking[pos3] === currentPlayer
       ) {
-        console.log("winner found");
-        // setGameStatus(true);
-        // handleGameEnd(currentPlayer);
         return true; // Return true when there's a win condition
       }
       {
@@ -73,10 +69,6 @@ function App() {
     }
   }, [tracking]);
 
-  // useEffect(() => {
-  //   winCheck();
-  // }, [tracking]);
-
   return (
     <div className="app">
       <h1 className="playerTitle">Tic Tac Toe REACT</h1>
@@ -102,10 +94,6 @@ function App() {
                 updateBoard={updateBoard}
                 player={currentPlayer}
                 updatePlayer={togglePlayerTurn}
-                // winCheck={winCheck}
-                // gameStatus={gameStatus}
-                // restartGame={restartGame}
-                // handleGameEnd={handleGameEnd}
               />
             );
           })}
@@ -116,7 +104,6 @@ function App() {
                 setShowModal(false);
                 restartGame();
               }}
-              // style={{ display: "flex" }}
             />
           ) : (
             ""

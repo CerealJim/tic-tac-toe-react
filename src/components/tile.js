@@ -8,9 +8,6 @@ const Tile = (props) => {
     if (props.board[props.ind] === "") {
       //update board state
       props.updateBoard(props.ind, props.player);
-
-      // const newPlayer = props.player === "player1" ? "player2" : "player1";
-      // props.updatePlayer(newPlayer);
     }
   };
 
